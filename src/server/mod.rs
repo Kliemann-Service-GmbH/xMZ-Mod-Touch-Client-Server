@@ -14,6 +14,13 @@ pub struct Server {
 }
 
 impl Server {
+    /// Creates a new instance
+    ///
+    /// #Examples
+    ///
+    /// ```
+    /// assert!(true);
+    /// ```
     pub fn new() -> Server {
         Server { stop:Cell::new(false)}
     }
@@ -28,25 +35,25 @@ impl Server {
         let server_interface = Interface::new(
             vec![
                 Method::new("Stop",
-                            vec![],
-                            vec![],
-                            Box::new(|_msg| {
+                            vec![], // input args
+                            vec![], // output args
+                            Box::new(|_msg| {   // callback
                                 self.stop.set(true);
                                 Ok( vec![])
                             })
                 ),
 
-                Method::new("Foo",
+                Method::new("Ping",
                             vec![], // input args
                             vec![], // output args
-                            Box::new(|msg| {    // Callback
-                                println!("Foo {:?}", msg);
+                            Box::new(|_msg| {    // callback
+                                println!("Server is up and running.");
                                 Ok( vec![])
                             })
                 ),
             ],
 
-            vec![],     // no properties
+            vec![], // no properties
             vec![]  // no signals
         );
 
