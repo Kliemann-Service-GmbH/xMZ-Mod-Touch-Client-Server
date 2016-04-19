@@ -1,6 +1,6 @@
 use sysfs_gpio::{Direction, Pin};
 
-pub struct LED {
+pub struct ShiftRegister {
     pub oe_pin: u64,
     pub ds_pin: u64,
     pub clock_pin: u64,
@@ -8,16 +8,24 @@ pub struct LED {
     pub data: u64,
 }
 
-impl LED {
+impl ShiftRegister {
     /// Creates a new instance
     ///
-    /// # Examples
+    /// All member variables can set to custom values
+    pub fn new(oe_pin: u64, ds_pin: u64, clock_pin: u64, latch_pin: u64) -> ShiftRegister {
+        ShiftRegister { oe_pin: oe_pin, ds_pin: ds_pin, clock_pin: clock_pin, latch_pin: latch_pin, data: 0 }
+    }
+
+    /// Default constructor for leds
     ///
-    /// ```
-    /// assert!(true);
-    /// ```
-    pub fn new() -> LED {
-        LED { oe_pin: 276, ds_pin: 38, clock_pin: 44, latch_pin: 40, data: 0 }
+    /// All pins are
+    pub fn new_led() -> ShiftRegister {
+        ShiftRegister { oe_pin: 276, ds_pin: 38, clock_pin: 44, latch_pin: 40, data: 0 }
+    }
+
+    /// Default constructor for relais
+    pub fn new_relais() -> ShiftRegister {
+        ShiftRegister { oe_pin: 277, ds_pin: 45, clock_pin: 39, latch_pin: 37, data: 0 }
     }
 
     /// Export the needed pins, panic if this fails
@@ -71,7 +79,7 @@ impl LED {
     /// ```
     /// extern crate xmz_client_server;
     ///
-    /// let mut led = xmz_client_server::led::LED::new();
+    /// let mut led = xmz_client_server::shift_register::ShiftRegister::new_led();
     /// assert_eq!(led.data, 0b00000000_00000000_00000000_00000000_00000000_00000000_00000000_00000000);
     ///
     /// led.set(1);

@@ -1,17 +1,20 @@
 extern crate dbus;
 extern crate sysfs_gpio;
 
-mod led;
+mod shift_register;
 mod server;
 
-use led::LED;
+use shift_register::ShiftRegister;
 use server::Server;
 
 
 fn main() {
     let server = Server::new();
-    let mut led = LED::new();
-    led.init();
+    let mut leds = ShiftRegister::new_led();
+    let mut relais = ShiftRegister::new_relais();
+
+    leds.init();
+    relais.init();
 
     server.start();
 }
