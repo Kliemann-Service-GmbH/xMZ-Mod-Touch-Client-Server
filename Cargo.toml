@@ -11,6 +11,10 @@ path = "src/client.rs"
 name = "server"
 path = "src/server-bin.rs"
 
+[[bin]]
+name = "test-server"
+path = "src/test-server.rs"
+
 [dependencies]
 dbus = "0.3.2"
 sysfs_gpio = { git = "https://github.com/zzeroo/rust-sysfs-gpio.git" }
