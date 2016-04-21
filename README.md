@@ -1,3 +1,6 @@
+# Vorbereitungen
+
+
 
 ## Start Server
 
@@ -9,6 +12,5 @@
 
 
 # Links
-* DBus Binding for Rust https://github.com/diwic/dbus-rs
+* http://www.cs.brandeis.edu/~cs146a/rust/rustbyexample-02-21-2015/sockets.html
 * Command Line Parser https://github.com/kbknapp/clap-rs
-* Sehr gute DBus Server Implementierung: https://github.com/hoodie/notify-rust/blob/master/src/server.rs

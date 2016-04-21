@@ -89,12 +89,13 @@ impl ShiftRegister {
         self.data |= 1 << num - 1;
     }
 
+    /// Toogles clock pin high->low
     fn clock_in(&self, clock_pin: &Pin) {
         clock_pin.set_value(1).unwrap();
         clock_pin.set_value(0).unwrap();
     }
 
-    /// Latch's the data out
+    /// Latch's the data out, latch pin high->low
     fn latch_out(&self, latch_pin: &Pin) {
         latch_pin.set_value(1).unwrap();
         latch_pin.set_value(0).unwrap();
@@ -123,6 +124,10 @@ impl ShiftRegister {
         self.latch_out(&latch_pin);
     }
 
+    /// Initalises all shift register with zero's and shift this output.
+    ///
+    /// On startup the shift registers are in a unknown state,
+    /// after this function, they are known zero.
     pub fn init(&mut self) {
         self.data = 0;
         self.shift_out();
