@@ -4,7 +4,6 @@ extern crate tempdir;
 #[macro_use]
 mod common;
 
-use common::SOCKET_PATH;
 use std::path::Path;
 use std::os::unix::net::UnixStream;
 use std::io::prelude::*;

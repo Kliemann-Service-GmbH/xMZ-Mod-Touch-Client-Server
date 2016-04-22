@@ -8,12 +8,3 @@ extern crate unix_socket;
 mod common;
 mod shift_register;
 mod server;
-
-use common::SOCKET_PATH;
-use shift_register::ShiftRegister;
-use std::fs;
-use std::os::unix::net::{UnixListener, UnixStream};
-use std::thread;
-use std::io::prelude::*;
-use std::path::Path;
-use tempdir::TempDir;

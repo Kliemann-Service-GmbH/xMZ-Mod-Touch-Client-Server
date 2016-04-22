@@ -9,19 +9,16 @@ mod common;
 mod shift_register;
 mod server;
 
-use common::SOCKET_PATH;
 use shift_register::ShiftRegister;
 use std::fs;
-use std::os::unix::net::{UnixListener, UnixStream};
+use std::os::unix::net::{UnixListener};
 use std::thread;
-use std::io::prelude::*;
 use std::path::Path;
-use tempdir::TempDir;
 use server::handle_client;
 
 fn main() {
-    let mut leds = ShiftRegister::new_led();
-    let mut relais = ShiftRegister::new_relais();
+    let leds = ShiftRegister::new_led();
+    let relais = ShiftRegister::new_relais();
 
     #[cfg(target_arch = "arm")]
     leds.init();
@@ -47,7 +44,7 @@ fn main() {
             }
             Err(err) => {
                 // connection failed
-                println!("Connection failed!");
+                println!("Connection failed! Error: {}", err);
                 break;
             }
         }

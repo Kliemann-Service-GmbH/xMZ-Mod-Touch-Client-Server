@@ -1,11 +1,5 @@
-use std::os::unix::net::{UnixListener, UnixStream};
-use common::SOCKET_PATH;
-use shift_register::ShiftRegister;
-use std::fs;
-use std::thread;
+use std::os::unix::net::{UnixStream};
 use std::io::prelude::*;
-use std::path::Path;
-use tempdir::TempDir;
 
 
 pub fn handle_client(mut stream: UnixStream) {

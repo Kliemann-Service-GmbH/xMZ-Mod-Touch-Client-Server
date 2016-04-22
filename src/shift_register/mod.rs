@@ -17,8 +17,6 @@ impl ShiftRegister {
     }
 
     /// Default constructor for leds
-    ///
-    /// All pins are
     pub fn new_led() -> ShiftRegister {
         ShiftRegister { oe_pin: 276, ds_pin: 38, clock_pin: 44, latch_pin: 40, data: 0 }
     }
