@@ -1,15 +1,14 @@
 #![feature(stmt_expr_attributes)]
 #![feature(unix_socket)]
 extern crate tempdir;
-extern crate sysfs_gpio;
 extern crate unix_socket;
+extern crate xmz_shift_register;
 
 #[macro_use]
 mod common;
-mod shift_register;
 mod server;
 
-use shift_register::ShiftRegister;
+use xmz_shift_register::ShiftRegister;
 use std::fs;
 use std::os::unix::net::{UnixListener};
 use std::thread;
@@ -17,13 +16,20 @@ use std::path::Path;
 use server::handle_client;
 
 fn main() {
-    let leds = ShiftRegister::new_led();
-    let relais = ShiftRegister::new_relais();
 
     #[cfg(target_arch = "arm")]
-    leds.init();
-    #[cfg(target_arch = "arm")]
-    relais.init();
+    {
+        let mut leds = ShiftRegister::new_led();
+        let mut relais = ShiftRegister::new_relais();
+
+        leds.init();
+        relais.init();
+        // default configuration
+        leds.set(1);
+        leds.set(3);
+        leds.shift_out();
+    }
+
 
     let path = Path::new("/tmp");
     let socket_path = path.join(common::SOCKET_PATH);

@@ -12,6 +12,7 @@ name = "server"
 path = "src/server-bin.rs"
 
 [dependencies]
-sysfs_gpio = { git = "https://github.com/zzeroo/rust-sysfs-gpio.git" }
+xmz_shift_register = { git = "https://github.com/zzeroo/xmz_shift_register.git" }
 unix_socket = "0.5.0"
 tempdir = "0.3.4"
+clap = "*"
