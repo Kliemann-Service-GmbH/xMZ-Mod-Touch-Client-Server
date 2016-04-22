@@ -5,7 +5,7 @@ authors = ["Stefan Müller <s.mueller@it.kls-glt.de>"]
 
 [[bin]]
 name = "client"
-path = "src/client.rs"
+path = "src/client-bin.rs"
 
 [[bin]]
 name = "server"
@@ -13,3 +13,5 @@ path = "src/server-bin.rs"
 
 [dependencies]
 sysfs_gpio = { git = "https://github.com/zzeroo/rust-sysfs-gpio.git" }
+unix_socket = "0.5.0"
+tempdir = "0.3.4"
