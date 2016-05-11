@@ -28,4 +28,10 @@ fn main() {
                                 .about("RELAIS Kontrolle der 'xMZ-Mod-Touch'"))
                             .get_matches();
 
+    match stream.write_all(b"HELO") {
+        Err(_) => panic!("Could not send message"),
+        Ok(_) => {}
+    }
+
+
 }

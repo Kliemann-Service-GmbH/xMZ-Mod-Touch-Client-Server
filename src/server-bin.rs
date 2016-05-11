@@ -8,15 +8,15 @@ extern crate xmz_shift_register;
 mod common;
 mod server;
 
-use xmz_shift_register::ShiftRegister;
+use server::handle_client;
 use std::fs;
 use std::os::unix::net::{UnixListener};
-use std::thread;
 use std::path::Path;
-use server::handle_client;
+use std::thread;
+use xmz_shift_register::ShiftRegister;
+
 
 fn main() {
-
     #[cfg(target_arch = "arm")]
     {
         let mut leds = ShiftRegister::new_led();
@@ -30,14 +30,21 @@ fn main() {
         leds.shift_out();
     }
 
-
     let path = Path::new("/tmp");
     let socket_path = path.join(common::SOCKET_PATH);
 
     // remove socket_path if present
-    match fs::remove_file(&socket_path) {
-        Ok(()) => {},
-        Err(err) => println!("Could not remove old socket: {}", err),
+    //
+    // first check with fs::metadata if file is present ....
+    match fs::metadata(&socket_path) {
+        Ok(_) => {
+            // ... if present, try to remove the old socket.
+            match fs::remove_file(&socket_path) {
+                Ok(()) => {},
+                Err(err) => println!("Could not remove old socket: {}", err),
+            }
+        }
+        Err(_) => {}
     }
 
     let listener = or_panic!(UnixListener::bind(&socket_path));
@@ -57,5 +64,4 @@ fn main() {
     }
     // close listener connection
     drop(listener);
-
 }
