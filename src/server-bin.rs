@@ -1,3 +1,4 @@
+#![feature(slice_patterns)]
 #![feature(stmt_expr_attributes)]
 #![feature(unix_socket)]
 extern crate tempdir;
@@ -24,6 +25,7 @@ fn main() {
 
         leds.init();
         relais.init();
+
         // default configuration
         leds.set(1);
         leds.set(3);

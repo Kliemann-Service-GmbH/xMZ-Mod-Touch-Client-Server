@@ -7,3 +7,4 @@ extern crate xmz_shift_register;
 #[macro_use]
 mod common;
 mod server;
+mod server_command;
