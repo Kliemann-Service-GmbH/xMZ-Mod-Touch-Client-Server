@@ -24,7 +24,7 @@ cargo run --bin client
 Zu Begin wird ein Unit File erstellt
 
 ```
-vim /etc/systemd/system/xmz-server.service
+vim /etc/systemd/system/xmz-mod-touch-server.service
 ```
 
 Folgender Inhalt ist nötig
@@ -44,13 +44,13 @@ WantedBy=multi-user.target
 Danach muss der service noch aktiviert ...
 
 ```
-systemctl enable xmz-server.service
+systemctl enable xmz-mod-touch-server.service
 ```
 
 Und gestartet werden.
 
 ```
-systemctl restart xmz-server.service
+systemctl restart xmz-mod-touch-server.service
 ```
 
 **Wichtig ist zu erwähnen dass man nich `Type=oneshot, forking` oder so angeben darf. Wird Type weg gelassen dann ist der Type simple.
