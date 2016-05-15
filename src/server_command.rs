@@ -6,7 +6,7 @@ use std::str::FromStr;
 /// - Command: the command (led, relais, ...)
 /// - Action: the action for the command (set, get, toggle, ...)
 /// - Value: the value for the action (1, 4, 10 ) // TODO: implement ranges like 4..11
-#[derive(PartialEq)]
+#[derive(Debug,PartialEq)]
 pub struct ServerCommand {
     command: String,
     action: String,

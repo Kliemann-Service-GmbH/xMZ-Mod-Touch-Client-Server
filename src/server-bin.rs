@@ -4,6 +4,7 @@ extern crate nanomsg;
 extern crate xmz_shift_register;
 
 mod server;
+mod server_command;
 use server::Server;
 
 fn main() {

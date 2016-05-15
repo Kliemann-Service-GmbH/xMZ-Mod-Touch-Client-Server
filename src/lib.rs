@@ -1,4 +1,4 @@
-#![feature(stmt_expr_attributes)]
+f#![feature(stmt_expr_attributes)]
 #![feature(unix_socket)]
 extern crate tempdir;
 extern crate unix_socket;

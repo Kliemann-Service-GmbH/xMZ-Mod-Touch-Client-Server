@@ -3,6 +3,7 @@ use nanomsg::{Socket, Protocol};
 use std::thread;
 use xmz_shift_register::{ShiftRegister, RegisterType};
 use std::io::Read;
+use server_command::ServerCommand;
 
 pub struct Server {
     pub leds: ShiftRegister,
@@ -54,6 +55,7 @@ impl Server {
     }
 
     fn handle_client(&self, command: &str) {
-        println!("Command: {}", command);
+        let command: ServerCommand = command.parse().unwrap();
+        println!("Command: {:?}", command);
     }
 }
