@@ -1,13 +1,18 @@
 # Vorbereitungen
 
+```
+apt-get install libnanomsg-dev
+```
+
 # Kompellierung und Deployment auf die xMZ Hardware
 
 ```
+export xmz_mod_touch_ip=192.168.200.154
 cargo build --target=armv7-unknown-linux-gnueabihf --bin server --release
 cargo build --target=armv7-unknown-linux-gnueabihf --bin client --release
-ssh -i ~/development/custom_image/id_rsa root@192.168.89.168 systemctl stop xmz-server.service
-scp -i ~/development/custom_image/id_rsa target/armv7-unknown-linux-gnueabihf/release/{client,server} root@192.168.89.168:/root/
-ssh -i ~/development/custom_image/id_rsa root@192.168.89.168 systemctl start xmz-server.service
+ssh -i ~/development/custom_image/id_rsa root@${xmz_mod_touch_ip} systemctl stop xmz-mod-touch-server.service
+scp -i ~/development/custom_image/id_rsa target/armv7-unknown-linux-gnueabihf/release/{client,server} root@${xmz_mod_touch_ip}:/root/
+ssh -i ~/development/custom_image/id_rsa root@${xmz_mod_touch_ip} systemctl start xmz-mod-touch-server.service
 ```
 
 ```
