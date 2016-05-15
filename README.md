@@ -2,6 +2,7 @@
 
 ```
 apt-get install libnanomsg-dev
+apt-get install libnanomsg4
 ```
 
 # Kompellierung und Deployment auf die xMZ Hardware

@@ -1,16 +1,12 @@
 #![feature(slice_patterns)]
-use common;
-use std::fs;
-use std::io::prelude::*;
-use std::os::unix::net::{UnixStream, UnixListener};
-use std::path::{Path, PathBuf};
+use nanomsg::{Socket, Protocol};
 use std::thread;
 use xmz_shift_register::{ShiftRegister, RegisterType};
+use std::io::Read;
 
 pub struct Server {
     pub leds: ShiftRegister,
     pub relais: ShiftRegister,
-    pub socket_path: PathBuf,
 }
 
 impl Server {
@@ -18,7 +14,6 @@ impl Server {
         Server {
             leds: ShiftRegister::new(RegisterType::LED),
             relais: ShiftRegister::new(RegisterType::RELAIS),
-            socket_path: Path::new("/tmp").join(common::SOCKET_PATH),
         }
     }
 
@@ -40,41 +35,25 @@ impl Server {
         self.start_thread();
     }
 
-    fn prepare_socket_path(&self) {
-        // remove socket_path if present
-        //
-        // first check with fs::metadata if file is present ....
-        match fs::metadata(&self.socket_path) {
-            Ok(_) => {
-                // ... if present, try to remove the old socket.
-                match fs::remove_file(&self.socket_path) {
-                    Ok(()) => {},
-                    Err(err) => println!("Could not remove old socket: {}", err),
-                }
-            }
-            Err(_) => {}
-        }
-    }
 
     fn start_thread(&self) {
-        self.prepare_socket_path();
-        let listener = or_panic!(UnixListener::bind(&self.socket_path));
-        for stream in listener.incoming() {
-            match stream {
-                Ok(stream) => {
-                    thread::spawn(|| handle_client(stream));
-                }
+        let mut socket = Socket::new(Protocol::Pull).unwrap();
+        let mut command = String::new();
+        socket.bind("ipc:///tmp/pipeline_collector.ipc");
+
+        loop {
+            match socket.read_to_string(&mut command) {
+                Ok(_) => self.handle_client(&command),
                 Err(err) => {
-                    println!("Connection failed! Error: {}", err);
-                    break;
+                    println!("Server failure: {}", err);
+                    break
                 }
             }
+            command.clear();
         }
-        drop(listener);
     }
-}
 
-
-fn handle_client(mut stream: UnixStream) {
-    println!("Server handle stream: {:?}", stream);
+    fn handle_client(&self, command: &str) {
+        println!("Command: {}", command);
+    }
 }
