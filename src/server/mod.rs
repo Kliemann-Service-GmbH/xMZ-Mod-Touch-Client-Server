@@ -59,15 +59,54 @@ impl Server {
         match &split[..] {
             [command, action, value] => {
                 match command {
-                    "led" => {
-                        let value: u64 = value.parse().unwrap();
-                        self.leds.set(value);
-                        self.leds.shift_out();
+                    "leds" => {
+                        match action {
+                            "get" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.leds.get(value);
+                                self.leds.shift_out();
+
+                            },
+                            "set" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.leds.set(value);
+                                self.leds.shift_out();
+
+                            },
+                            "toggle" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.leds.toggle(value);
+                                self.leds.shift_out();
+                            },
+                            _ => println!("Unknown action: {}", action),
+                        }
                     },
-                    _ => println!("irgendwas {} {} {}", command, action, value),
+                    "relais" => {
+                        match action {
+                            "get" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.relais.get(value);
+                                self.relais.shift_out();
+
+                            },
+                            "set" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.relais.set(value);
+                                self.relais.shift_out();
+
+                            },
+                            "toggle" => {
+                                let value: u64 = value.parse().unwrap();
+                                self.relais.toggle(value);
+                                self.relais.shift_out();
+                            },
+                            _ => println!("Unknown action: {}", action),
+                        }
+                    },
+                    _ => println!("Unknown command: {}", command),
                 }
             },
-            _ => println!("Invalid command.")
+            _ => println!("Unknown command.")
         }
     }
 }
