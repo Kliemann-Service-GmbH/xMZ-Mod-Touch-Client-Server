@@ -8,9 +8,9 @@ use std::str::FromStr;
 /// - Value: the value for the action (1, 4, 10 ) // TODO: implement ranges like 4..11
 #[derive(Debug,PartialEq)]
 pub struct ServerCommand {
-    command: String,
-    action: String,
-    value: String,
+    pub command: String,
+    pub action: String,
+    pub value: String,
 }
 
 impl ServerCommand {

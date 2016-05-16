@@ -37,7 +37,7 @@ impl Server {
     }
 
 
-    fn start_thread(&self) {
+    fn start_thread(&mut self) {
         let mut socket = Socket::new(Protocol::Pull).unwrap();
         let mut command = String::new();
         socket.bind("ipc:///tmp/pipeline_collector.ipc");
@@ -54,8 +54,20 @@ impl Server {
         }
     }
 
-    fn handle_client(&self, command: &str) {
-        let command: ServerCommand = command.parse().unwrap();
-        println!("Command: {:?}", command);
+    fn handle_client(&mut self, cmd: &str) {
+        let split: Vec<_> = cmd.split_whitespace().collect();
+        match &split[..] {
+            [command, action, value] => {
+                match command {
+                    "led" => {
+                        let value: u64 = value.parse().unwrap();
+                        self.leds.set(value);
+                        self.leds.shift_out();
+                    },
+                    _ => println!("irgendwas {} {} {}", command, action, value),
+                }
+            },
+            _ => println!("Invalid command.")
+        }
     }
 }
