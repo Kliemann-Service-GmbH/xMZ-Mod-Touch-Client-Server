@@ -1,12 +1,16 @@
-# Vorbereitungen
-
+ # Vorbereitungen (development und production)
 ```
 apt-get install libnanomsg-dev
-apt-get install libnanomsg4
 ```
 
-# Kompellierung und Deployment auf die xMZ Hardware
+# Kompellierung und Deployment auf die xMZ Hardware (production)
+```
+git clone https://github.com/Kliemann-Service-GmbH/xMZ-Mod-Touch-Client-Server.git
+cd xMZ-Mod-Touch-Client-Server
+```
 
+
+# Kompellierung in der Entwicklungsumgebung (development)
 ```
 export xmz_mod_touch_ip=192.168.200.154
 cargo build --target=armv7-unknown-linux-gnueabihf --bin server --release

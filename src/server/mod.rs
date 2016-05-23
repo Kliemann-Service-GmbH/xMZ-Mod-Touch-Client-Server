@@ -25,6 +25,7 @@ impl Server {
             self.relais.init();
         }
         // default configuration
+        // TODO: Export to a Config file /dev/mmcblk0p1/xMZ-Mod-Touch-Configuration.toml
         self.relais.set(1);
         self.leds.set(1);
         self.leds.set(3);
