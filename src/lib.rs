@@ -1,10 +1,6 @@
-f#![feature(stmt_expr_attributes)]
-#![feature(unix_socket)]
-extern crate tempdir;
-extern crate unix_socket;
+#![feature(slice_patterns)]
+#![feature(stmt_expr_attributes)]
+extern crate nanomsg;
 extern crate xmz_shift_register;
 
-#[macro_use]
-mod common;
 mod server;
-mod server_command;

@@ -16,10 +16,6 @@ path = "src/client-bin.rs"
 name = "server"
 path = "src/server-bin.rs"
 
-[lib]
-name = "server_command"
-path = "src/server_command.rs"
-
 [dependencies]
 xmz_shift_register = { git = "https://github.com/zzeroo/xmz_shift_register.git" }
 unix_socket = "0.5.0"

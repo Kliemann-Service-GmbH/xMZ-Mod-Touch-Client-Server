@@ -1,4 +1,3 @@
-#![feature(slice_patterns)]
 use std::str::FromStr;
 /// Store the server command
 ///

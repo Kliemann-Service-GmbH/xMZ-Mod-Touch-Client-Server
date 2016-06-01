@@ -1,17 +1,10 @@
 #![feature(slice_patterns)]
-#![feature(stmt_expr_attributes)]
-#![feature(unix_socket)]
 #[macro_use]
 extern crate clap;
 extern crate nanomsg;
-extern crate tempdir;
-extern crate unix_socket;
-extern crate xmz_shift_register;
-use client::Client;
+use client::client_core::Client;
 use clap::{App, Arg, SubCommand};
 
-#[macro_use]
-mod common;
 mod client;
 
 fn main() {
