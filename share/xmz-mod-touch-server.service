@@ -1,9 +1,0 @@
-[Unit]
-Description="LED und RELASI Control"
-After=multi-user.target
-
-[Service]
-ExecStart=/root/server &
-
-[Install]
-WantedBy=multi-user.target
