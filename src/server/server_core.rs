@@ -3,11 +3,12 @@ use server::server_command::ServerCommand;
 use std::io::Read;
 use std::thread;
 use xmz_shift_register::{ShiftRegister, RegisterType};
-
+use server::module::Module;
 
 pub struct Server {
     pub leds: ShiftRegister,
     pub relais: ShiftRegister,
+    modules: Vec<Module>,
 }
 
 impl Server {
@@ -15,6 +16,7 @@ impl Server {
         Server {
             leds: ShiftRegister::new(RegisterType::LED),
             relais: ShiftRegister::new(RegisterType::RELAIS),
+            modules: unimplemented!(),
         }
     }
 
